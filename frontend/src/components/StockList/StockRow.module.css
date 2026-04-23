@@ -1,0 +1,56 @@
+.row {
+  display: grid;
+  grid-template-columns: 72px 1fr 120px 90px 90px;
+  align-items: center;
+  height: 56px;
+  padding: 0 24px;
+  border-bottom: 1px solid #21262d;
+  transition: background 0.1s ease;
+  box-sizing: border-box;
+}
+
+.row:hover {
+  background: #161b22;
+}
+
+.ticker {
+  font-size: 13px;
+  font-weight: 700;
+  color: #58a6ff;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.04em;
+}
+
+.name {
+  font-size: 13px;
+  color: #8b949e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 12px;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  text-align: right;
+  padding-right: 12px;
+}
+
+.change,
+.changePct {
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Courier New', monospace;
+  text-align: right;
+}
+
+.up {
+  color: #3fb950;
+}
+
+.down {
+  color: #f85149;
+}
+

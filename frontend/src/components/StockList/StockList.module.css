@@ -1,0 +1,24 @@
+.container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* GPU-composited scroll — no layout reflow on scroll */
+  will-change: scroll-position;
+}
+
+.container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 3px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
