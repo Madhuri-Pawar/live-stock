@@ -84,21 +84,43 @@ export function useWebSocket({ onMessage, onInit }) {
 
     connect();
 
-    // Resume data processing when user switches back to this tab
     const handleVisibility = () => {
       if (!document.hidden && wsRef.current?.readyState !== WebSocket.OPEN) {
         connect();
       }
     };
+
+    // Network went offline — update UI immediately without waiting for ws.onclose
+    // (browser can take 30-60s to fire onclose on a zombie socket)
+    const handleOffline = () => {
+      setIsConnected(false);
+      if (wsRef.current) {
+        wsRef.current.onclose = null;
+        wsRef.current.close();
+        wsRef.current = null;
+      }
+      clearTimeout(timerRef.current);
+    };
+
+    // Network came back — start reconnecting immediately
+    const handleOnline = () => {
+      retriesRef.current = 0;
+      connect();
+    };
+
     document.addEventListener('visibilitychange', handleVisibility);
+    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline);
 
     return () => {
       mountedRef.current = false;
       clearTimeout(timerRef.current);
       document.removeEventListener('visibilitychange', handleVisibility);
+      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline);
 
       if (wsRef.current) {
-        wsRef.current.onclose = null; // prevent reconnect trigger on intentional close
+        wsRef.current.onclose = null;
         wsRef.current.close(1000, 'Component unmounted');
       }
     };
