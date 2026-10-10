@@ -148,7 +148,7 @@ Max retries hit ──► loop stops. Page refresh required.
 ## Project Structure
 
 ```
-stock-dashboard/
+live-stock/
 ├── backend/
 │   ├── src/
 │   │   ├── server.js          # Bootstrap — wires feed + WS, nothing else
